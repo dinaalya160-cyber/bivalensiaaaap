@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Satu Tahun Berlalu</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,500&family=Dancing+Script:wght@600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#194d54;--bg2:#165756;--blue:#99f1e9;--rose:#1c726f;--cream:#fff7ec;--ink:#1b353c;--text:#a3f4fa;--card:rgba(12, 59, 73, 0.07);
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html{scroll-behavior:smooth;scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:radial-gradient(ellipse at top,var(--bg2),var(--bg) 70%) fixed;color:var(--text);font-family:Inter,system-ui,sans-serif;font-weight:300;overflow-x:hidden}
+h1,h2,h3{font-family:'Playfair Display',Georgia,serif;font-weight:500;margin:0}
+.script{font-family:'Dancing Script',cursive}
+section{min-height:100vh;padding:80px 20px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
+.label{letter-spacing:.3em;font-size:11px;text-transform:uppercase;color:var(--blue);margin-bottom:12px}
+.sub{opacity:.7;margin:8px 0 28px;font-size:14px}
+.reveal{opacity:0;transform:translateY(30px);transition:1s}
+.reveal.on{opacity:1;transform:none}
+#petals{position:fixed;inset:0;pointer-events:none;z-index:1;overflow:hidden}
+.petal{position:absolute;top:-40px;animation:fall linear forwards}
+@keyframes fall{to{transform:translateY(110vh) rotate(540deg)}}
+/* lock */
+#lock{position:fixed;inset:0;z-index:50;background:radial-gradient(ellipse at top,var(--bg2),var(--bg));display:flex;align-items:center;justify-content:center;transition:opacity 1s}
+#lock.hide{opacity:0;pointer-events:none}
+.pad{background:var(--card);border:1px solid rgba(102, 219, 248, 0.12);border-radius:24px;padding:32px 28px;width:min(320px,90vw);backdrop-filter:blur(10px)}
+.dots{display:flex;gap:10px;justify-content:center;margin:18px 0 24px}
+.dots i{width:12px;height:12px;border-radius:50%;border:1.5px solid var(--blue)}
+.dots i.f{background:var(--blue)}
+.keys{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.keys button{height:54px;border-radius:50%;border:0;background:rgba(15, 36, 37, 0.1);color:var(--text);font-size:20px;cursor:pointer;transition:.2s}
+.keys button:hover{background:rgba(16, 179, 165, 0.2)}
+.keys .ok{background:var(--rose)}
+.shake{animation:shake .4s}
+@keyframes shake{25%{transform:translateX(-8px)}75%{transform:translateX(8px)}}
+#hint{font-size:12px;opacity:.6;margin-top:16px;min-height:16px}
+/* hero */
+.hero h1{font-size:clamp(44px,12vw,92px);line-height:1}
+.hero .script{font-size:clamp(48px,13vw,100px);color:var(--blue);display:block;margin:-6px 0}
+.cake{font-size:90px;margin-top:20px;animation:float 3s ease-in-out infinite;cursor:pointer;user-select:none}
+@keyframes float{50%{transform:translateY(-12px)}}
+.btn{background:var(--rose);color:#a9e5f2;border:0;border-radius:99px;padding:12px 26px;font:500 14px Inter;cursor:pointer;transition:.3s}
+.btn:hover{transform:scale(1.05)}
+/* letter */
+.letter{background:var(--cream);color:var(--ink);border-radius:16px;max-width:520px;padding:36px 30px;text-align:left;box-shadow:0 20px 60px rgba(0,0,0,.4);font-family:'Playfair Display',serif;line-height:1.8;font-size:15px}
+.letter p{margin:0 0 14px}
+.letter .date{font-family:Inter;font-size:11px;letter-spacing:.2em;color:var(--rose);margin-bottom:10px}
+#env{font-size:80px;cursor:pointer;animation:float 3s infinite}
+/* bouquet */
+.bq{position:relative;width:260px;height:280px;margin:10px auto}
+.bq .fl{position:absolute;font-size:44px;opacity:0;transform:translateY(60px) scale(.3);transition:.8s cubic-bezier(.3,1.5,.5,1)}
+.bq.open .fl{opacity:1;transform:none}
+.vase{position:absolute;bottom:0;left:50%;transform:translateX(-50%);font-size:70px}
+.quote{font-style:italic;font-family:'Playfair Display',serif;max-width:420px;min-height:56px;opacity:.9}
+/* gallery */
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:22px;max-width:640px;width:100%}
+.pol{background:hsl(0, 0%, 96%);color:var(--ink);padding:10px 10px 14px;border-radius:4px;box-shadow:0 10px 30px rgba(19, 198, 198, 0.4);transform:rotate(var(--r));cursor:pointer;transition:.4s}
+.pol:hover{transform:rotate(0) scale(1.05)}
+.pol .ph{aspect-ratio:1;background:linear-gradient(135deg,#c1f3f6,#5bc9be);display:flex;align-items:center;justify-content:center;font-size:42px;overflow:hidden}
+.pol .ph img{width:100%;height:100%;object-fit:cover}
+.pol p{margin:10px 0 0;font:600 18px 'Dancing Script'}
+/* timeline */
+.tl{max-width:520px;width:100%;text-align:left;border-left:2px solid rgba(168, 212, 249, 0.4);padding-left:26px;display:flex;flex-direction:column;gap:30px}
+.tl div{position:relative}
+.tl div::before{content:'';position:absolute;left:-33px;top:6px;width:12px;height:12px;border-radius:50%;background:var(--blue);box-shadow:0 0 12px var(--pink)}
+.tl b{font-family:'Playfair Display';font-size:17px;font-weight:500}
+.tl small{display:block;color:var(--blue);font-size:12px;margin-bottom:4px}
+.tl p{margin:4px 0 0;opacity:.75;font-size:14px;line-height:1.6}
+/* jar */
+.jar{font-size:100px;cursor:pointer;transition:.3s}
+.jar:active{transform:rotate(-8deg) scale(.95)}
+.note{background:var(--cream);color:var(--ink);border-radius:12px;padding:20px 24px;max-width:340px;margin-top:22px;font-family:'Playfair Display',serif;font-style:italic;line-height:1.7;min-height:80px;display:flex;align-items:center;justify-content:center;box-shadow:0 10px 30px rgba(0,0,0,.4)}
+footer{padding:50px 20px 70px;text-align:center;opacity:.7;font-size:13px}
+</style>
+</head>
+<body>
+
+<div id="lock">
+  <div class="pad">
+    <div class="label">KITA SEMUA</div>
+    <h2 id="lockTitle" style="font-size:22px"></h2>
+    <div class="dots" id="dots"></div>
+    <div class="keys" id="keys"></div>
+    <div id="hint"></div>
+  </div>
+</div>
+
+<div id="petals"></div>
+
+<section class="hero">
+  <div class="label reveal">✿ Hari Bersama-sama ✿</div>
+  <h1 class="reveal">Happy</h1>
+  <span class="script reveal">For All</span>
+  <h1 class="reveal" id="heroName"></h1>
+  <p class="sub reveal" id="heroDate"></p>
+  <div class="cake reveal" id="cake" title="Tiup lilinnya">🎂</div>
+  <p class="sub reveal" id="cakeMsg">Tap kue untuk meniup lilin 🕯️</p>
+  <p class="sub reveal">↓ gulir ke bawah ↓</p>
+</section>
+
+<section>
+  <div class="label reveal">Sebuah surat untuk kita semua</div>
+  <div id="env" class="reveal">💌</div>
+  <p class="sub reveal" id="envHint">Ketuk amplop untuk membuka</p>
+  <div class="letter" id="letter" style="display:none"></div>
+</section>
+
+<section>
+  <h2 class="reveal" style="font-size:38px">Digital Bouquet</h2>
+  <p class="sub reveal">Ketuk bunganya untuk mekar</p>
+  <div class="bq reveal" id="bq"><div class="vase">🪴</div></div>
+  <p class="quote reveal" id="bqQuote"></p>
+</section>
+
+<section>
+  <h2 class="reveal" style="font-size:38px">Galeri Kenangan</h2>
+  <p class="sub reveal">History</p>
+  <div class="grid reveal" id="grid"></div>
+</section>
+
+<section>
+  <div class="label reveal">Our Story</div>
+  <h2 class="reveal" style="font-size:36px">Jurnal Perjalanan Kita</h2>
+  <p class="sub reveal">Bagaimana kita bertumbuh bersama</p>
+  <div class="tl reveal" id="tl"></div>
+</section>
+
+<section>
+  <div class="label reveal">From Bivalensi</div>
+  <h2 class="reveal" style="font-size:34px">Reasons I’m Grateful To Know You</h2>
+  <p class="sub reveal">Kocok toples untuk ambil satu catatan</p>
+  <div class="jar reveal" id="jar">🫙</div>
+  <div class="note" id="note">Ketuk toples ✨</div>
+</section>
+
+<footer id="foot"></footer>
+<button id="mbtn" aria-label="Musik">🎵</button>
+
+<footer id="foot"></footer>
+
+<script>
+/* ======== UBAH ISI DI SINI ======== */
+const CONFIG={
+  name:"Bivalensi",
+  music:"g.mp3",                          // contoh: "lagu.mp3" (taruh di folder yang sama)
+  code:"1111",                       // kode rahasia (angka)
+  hint:"Petunjuk: angka tunggal(HHBB)",
+  date:"24 Agustus• HARI PERTAMA",
+  from:"— BIVALENSI",
+  letter:[
+    "untuk teman-temanku 🌸",
+    "Di hari ini, tepat satu tahun berada di farmasi.",
+    "terimakasih sudah bertahan samapai saat ini",
+    "Terima kasih sudah menjadi bagaian dari perjalanan ini. Semoga tahun ini membawa semua hal baik yang kita impikan."
+  ],
+  bouquetQuote:"Seperti rangkaian bunga ini, harapanku untuk kita tumbuh setiap hari.",
+  flowers:["🌸","🌷","🌹","🌺","🌻","💐"],
+  gallery:[
+    {e:"8",c:"Foto Pertama",img:"8.JPEG"},
+    {e:"7",c:"Depan Framasi",img:"7.JPEG"},
+    {e:"3",c:"Selesai Coaching",img:"3.JPEG"},
+    {e:"4",c:"Di maskam",img:"4.JPEG"},
+    {e:"5",c:"Depan Rumah Abay",img:"5.JPEG"},
+    {e:"6",c:"Selesai Unjuk Karya",img:"6.JPEG"},
+    {e:"1",c:"Dokumentasi Unjuk Karaya",img:"1.JPEG"},
+    {e:"9",c:"Bareng Pak Rektor",img:"2.JPEG"},
+    {e:"10",c:"Foto Bersama",img:"10.JPEG"},
+  ],                                  // isi img:"data:..." atau biarkan kosong
+  timeline:[
+    {d:"Titik Awal",t:"Pertemuan yang Tak Pernah Direncanakan",p:"Semesta mempertemukan kita di waktu yang tepat."},
+    {d:"Mulai Dekat",t:"Tugas Yang tak pernah Habis",p:"parktikum, kerja TP, TC, LKP, kejar ACC, Ta Skip,"},
+    {d:"Hari Ini",t:"Dan Cerita Kita Masih Berlanjut",p:"Terima kasih sudah meramaikan hari-hari yang sulit🤗."}
+  ],
+  reasons:[
+    "Kalian hebatttt.",
+    "Jangan Lupa Tidur",
+    "Janagn Lupa Laprak",
+    "Kalian kuatttt.",
+    "menjadi anak farmasi bukan sekedar meracik obat, tapi meracik harapan bagi setiap jiwa yang berharap kesembuhan.",
+    "tidak ada yang mudah di dunia ini, tapi bersama-sama jauh lebih ringan.",
+    "ini bagian dari hidup.",
+    "Janagn Lupa Makan",
+    "enjoyy.", 
+  ]
+};
+/* ================================== */
+const $=id=>document.getElementById(id);
+const rnd=a=>a[Math.floor(Math.random()*a.length)];
+// isi konten
+$('lockTitle').textContent='Untuk '+CONFIG.name+', my Frandns';
+$('hint').textContent=CONFIG.hint;
+$('heroName').textContent=CONFIG.name;
+$('heroDate').textContent=CONFIG.date;
+$('bqQuote').textContent='“'+CONFIG.bouquetQuote+'”';
+$('foot').textContent=CONFIG.from+' ♡';
+$('letter').innerHTML=CONFIG.letter.map((t,i)=>i?`<p>${t}</p>`:`<div class="date">${CONFIG.date.split('•')[0]}</div><p><b>${t}</b></p>`).join('')+`<p style="text-align:right">${CONFIG.from}</p>`;
+$('grid').innerHTML=CONFIG.gallery.map((g,i)=>`<div class="pol" style="--r:${(i%2?3:-3)+i}deg"><div class="ph">${g.img?`<img src="${g.img}" alt="">`:g.e}</div><p>${g.c}</p></div>`).join('');
+$('tl').innerHTML=CONFIG.timeline.map(x=>`<div><small>✦ ${x.d}</small><b>${x.t}</b><p>${x.p}</p></div>`).join('');
+// keypad
+let entry='';const N=CONFIG.code.length;
+$('dots').innerHTML='<i></i>'.repeat(N);
+['1','2','3','4','5','6','7','8','9','⌫','0','✓'].forEach(k=>{
+  const b=document.createElement('button');b.textContent=k;
+  if(k==='✓')b.className='ok';
+  b.onclick=()=>press(k);$('keys').appendChild(b);
+});
+function draw(){[...$('dots').children].forEach((d,i)=>d.className=i<entry.length?'f':'')}
+function press(k){
+  if(k==='⌫')entry=entry.slice(0,-1);
+  else if(k==='✓'){check();return}
+  else if(entry.length<N)entry+=k;
+  draw();if(entry.length===N&&k!=='⌫')check();
+}
+function check(){
+  if(entry===CONFIG.code){$('lock').classList.add('hide');start()}
+  else{const p=document.querySelector('.pad');p.classList.add('shake');setTimeout(()=>p.classList.remove('shake'),400);entry='';draw()}
+}
+// petals
+function petal(){
+  const p=document.createElement('span');p.className='petal';
+  p.textContent=rnd(['🌸','🌺','🌼','💮','🌷','🪻']);
+  p.style.left=Math.random()*100+'vw';p.style.fontSize=(14+Math.random()*16)+'px';
+  p.style.opacity=.3+Math.random()*.4;p.style.animationDuration=(7+Math.random()*7)+'s';
+  $('petals').appendChild(p);setTimeout(()=>p.remove(),15000);
+}
+const au=new Audio();
+function start(){setInterval(petal,700);for(let i=0;i<8;i++)setTimeout(petal,i*200);obs();
+  if(CONFIG.music){au.src=CONFIG.music;au.loop=true;au.play().catch(()=>{});$('mbtn').style.display='flex';
+    $('mbtn').onclick=()=>{if(au.paused){au.play();$('mbtn').textContent='🎵'}else{au.pause();$('mbtn').textContent='🔇'}}}}
+// scroll reveal
+function obs(){
+  const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('on');io.unobserve(e.target)}}),{threshold:.15});
+  document.querySelectorAll('.reveal').forEach((el,i)=>{el.style.transitionDelay=(i%4)*.12+'s';io.observe(el)});
+}
+// cake
+let lit=true;
+$('cake').onclick=()=>{
+  lit=!lit;$('cake').textContent=lit?'🎂':'🍰';
+  $('cakeMsg').textContent=lit?'Tap kue untuk meniup lilin 🕯️':'Semoga semua permohonanmu terkabul! ✨🎉';
+  if(!lit)for(let i=0;i<25;i++)setTimeout(petal,i*60);
+};
+// letter
+$('env').onclick=()=>{
+  $('env').textContent='💝';$('envHint').style.display='none';
+  const l=$('letter');l.style.display='block';l.scrollIntoView({behavior:'smooth',block:'center'});
+};
+// bouquet
+const pos=[[100,70],[30,110],[170,110],[65,30],[135,30],[100,150]];
+CONFIG.flowers.slice(0,6).forEach((f,i)=>{
+  const s=document.createElement('span');s.className='fl';s.textContent=f;
+  s.style.left=pos[i][0]+'px';s.style.top=pos[i][1]+'px';s.style.transitionDelay=i*.15+'s';
+  $('bq').appendChild(s);
+});
+$('bq').onclick=()=>$('bq').classList.toggle('open');
+// jar
+$('jar').onclick=()=>{
+  $('note').textContent=rnd(CONFIG.reasons);
+  $('jar').animate([{transform:'rotate(-10deg)'},{transform:'rotate(10deg)'},{transform:'none'}],{duration:350});
+};
+</script>
+</body>
+</html>
